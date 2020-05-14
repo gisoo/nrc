@@ -1,0 +1,2 @@
+# nrc
+Newton Raphson Consensus
