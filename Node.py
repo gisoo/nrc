@@ -3,7 +3,7 @@ import time
 import numpy as np
 from Message import *
 
-lock = threading.Lock()
+#lock = threading.Lock()
 
 
 class Node(threading.Thread):
@@ -17,6 +17,7 @@ class Node(threading.Thread):
                  function_constants: np.array, simulation_function_xtx_btx):
 
         super(Node, self).__init__()
+        self.lock = threading.Lock()   ####
         self.node_id = node_id
         self.epsilon = epsilon
         self.xi = np.array(x0)
@@ -65,7 +66,8 @@ class Node(threading.Thread):
     def broadcast(self, message):
         """This method will broadcast the passed message to all neighbors of this node."""
         print("Node ID:  " + str(self.node_id) + "  -  broadcasting started!\n")
-        with lock:
+        #with lock:
+        with self.lock:
             i = 0
             while i < len(self.all_nodes_message_buffers):
                 if self.adjacency_vector[i] == 1:
@@ -80,7 +82,8 @@ class Node(threading.Thread):
         the yi and zi would be updated by this method."""
         if self.is_ready_to_receive:
             print("Node ID:  " + str(self.node_id) + "  -  Receiving data started!\n")
-            with lock:
+         #  with lock:
+            with self.lock:
                 message = self.all_nodes_message_buffers[self.node_id].get()
                 time.sleep(0.05)
             self.is_ready_to_receive = False
