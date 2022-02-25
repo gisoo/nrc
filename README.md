@@ -1,5 +1,5 @@
 # nrc
-Newton Raphson Consensus (wit Push-sum Consensus)
+Newton Raphson Consensus (with Push-sum Consensus)
 
 This algorithm can be started by executing the "Simulation.py". At the very beginning of the execution, the number of "node" should be inserted as an input parameter, but the rest of the parameters will be fetched from "SimulationSpecification.py"
 
